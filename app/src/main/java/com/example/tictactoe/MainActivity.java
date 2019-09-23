@@ -14,10 +14,9 @@ public class MainActivity extends AppCompatActivity {
     // Holds the states of the buttons
     private int[] ButtonStates;
     private Button[] Buttons;
-    private int CurrentButtonIndex;
     private int[] Colors;
     private boolean PlayerOneTurn;
-    private char PlayerChars[];
+    private int MovesPlayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         PlayerOneTurn = true;
 
+        MovesPlayed = 0;
+
         // NOTE(l4v): Initializing values
         for(int i = 0; i < 9; ++i)
         {
             ButtonStates[i] = 0;
-            Buttons[i].setBackgroundColor(Colors[0]);
+            Buttons[i].setBackgroundColor(getResources().getColor(R.color.Idle));
             Buttons[i].setTextColor(getResources().getColor(R.color.PlayerTextColor));
             Buttons[i].setTextSize(32.0f);
         }
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[0] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -80,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[1] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -95,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[2] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -110,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[3] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -125,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[4] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -140,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[5] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -155,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[6] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -170,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[7] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
@@ -185,9 +202,160 @@ public class MainActivity extends AppCompatActivity {
                             : getResources().getString(R.string.OField));
                     ButtonStates[8] = PlayerOneTurn ? 1 : 2;
                     PlayerOneTurn = !PlayerOneTurn;
+                    ++MovesPlayed;
+                    CheckWin();
                 }
             }
         });
 
     }
+
+    private void ResetTiles()
+    {
+        for(int i = 0; i < 9; ++i)
+        {
+            Buttons[i].setBackgroundColor(getResources().getColor(R.color.Idle));
+            Buttons[i].setText(getResources().getString(R.string.EmptyField));
+            ButtonStates[i] = 0;
+        }
+        MovesPlayed = 0;
+        PlayerOneTurn = true;
+    }
+
+    private void PlayerWon(int Player)
+    {
+        if(Player != 0)
+        {
+            Log.d("Player won! ", "Player " + Player);
+        }
+        if(Player == 0)
+        {
+            Log.d("No players won! ", "Draw");
+        }
+
+        ResetTiles();
+
+    }
+
+    private void CheckWin()
+    {
+        // TODO(l4v): Optimize for loops so that it doesn't have to check everything
+        int PlayerOneInARow = 0;
+        int PlayerTwoInARow = 0;
+        // NOTE(l4v): Checking verticals
+        for(int Column = 0; Column < 3; ++Column)
+        {
+            for(int Row = 0; Row < 3; ++Row)
+            {
+                if(ButtonStates[Column + 3 * Row] == 1)
+                {
+                    PlayerOneInARow++;
+                }
+                else if(ButtonStates[Column + 3 * Row] == 2)
+                {
+                    PlayerTwoInARow++;
+                }
+                if(PlayerOneInARow == 3)
+                {
+                    // NOTE(l4v): Player One wins
+                    PlayerWon(1);
+                }
+                if(PlayerTwoInARow == 3)
+                {
+                    // NOTE(l4v): Player Two wins
+                    PlayerWon(2);
+                }
+            }
+            PlayerOneInARow = 0;
+            PlayerTwoInARow = 0;
+        }
+
+        // NOTE(l4v): Checking horizontals
+        for(int Row = 0; Row < 3; ++Row)
+        {
+            for(int Column = 0; Column < 3; ++Column)
+            {
+                if(ButtonStates[Row * 3 + Column] == 1)
+                {
+                    PlayerOneInARow++;
+                }
+                else if(ButtonStates[Row * 3 + Column] == 2)
+                {
+                    PlayerTwoInARow++;
+                }
+                if(PlayerOneInARow == 3)
+                {
+                    // NOTE(l4v): Player One wins
+                    PlayerWon(1);
+                }
+                if(PlayerTwoInARow == 3)
+                {
+                    // NOTE(l4v): Player Two wins
+                    PlayerWon(2);
+                }
+            }
+            PlayerOneInARow = 0;
+            PlayerTwoInARow = 0;
+        }
+
+        // NOTE(l4v): Checking diagonal
+        int Diag = 0;
+        while(Diag <= 8)
+        {
+            if(ButtonStates[Diag] == 1)
+            {
+                PlayerOneInARow++;
+            }
+            else if(ButtonStates[Diag] == 2)
+            {
+                PlayerTwoInARow++;
+            }
+            if(PlayerOneInARow == 3)
+            {
+                // NOTE(l4v): Player One wins
+                PlayerWon(1);
+            }
+            if(PlayerTwoInARow == 3)
+            {
+                // NOTE(l4v): Player Two wins
+                PlayerWon(2);
+            }
+            Diag += 4;
+        }
+
+        PlayerOneInARow = 0;
+        PlayerTwoInARow = 0;
+        Diag = 2;
+
+        // NOTE(l4v): Checking other diagonal
+        while(Diag <= 6)
+        {
+            if(ButtonStates[Diag] == 1)
+            {
+                PlayerOneInARow++;
+            }
+            else if(ButtonStates[Diag] == 2)
+            {
+                PlayerTwoInARow++;
+            }
+            if(PlayerOneInARow == 3)
+            {
+                // NOTE(l4v): Player One wins
+                PlayerWon(1);
+            }
+            if(PlayerTwoInARow == 3)
+            {
+                // NOTE(l4v): Player Two wins
+                PlayerWon(2);
+            }
+            Diag += 2;
+        }
+
+        if(MovesPlayed == 9)
+        {
+            // NOTE(l4v): Draw
+            PlayerWon(0);
+        }
+    }
+
 }
