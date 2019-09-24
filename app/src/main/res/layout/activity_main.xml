@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:weightSum="3">
+    android:weightSum="3"
+    android:background="@color/Background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +20,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
+            android:layout_marginBottom="1px"
             android:text="@string/btn00"
             android:id="@+id/btn00"/>
         <Button
@@ -26,6 +29,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
+            android:layout_marginBottom="1px"
             android:text="@string/btn01"
             android:id="@+id/btn01"/>
         <Button
@@ -33,6 +38,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginBottom="1px"
             android:text="@string/btn02"
             android:id="@+id/btn02"/>
     </LinearLayout>
@@ -46,6 +52,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
+            android:layout_marginBottom="1px"
             android:text="@string/btn10"
             android:id="@+id/btn10"/>
         <Button
@@ -53,6 +61,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
+            android:layout_marginBottom="1px"
             android:text="@string/btn11"
             android:id="@+id/btn11"/>
         <Button
@@ -60,6 +70,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginBottom="1px"
             android:text="@string/btn12"
             android:id="@+id/btn12"/>
     </LinearLayout>
@@ -73,6 +84,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
             android:text="@string/btn20"
             android:id="@+id/btn20"/>
         <Button
@@ -80,6 +92,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="0dp"
+            android:layout_marginRight="1px"
             android:text="@string/btn21"
             android:id="@+id/btn21"/>
         <Button

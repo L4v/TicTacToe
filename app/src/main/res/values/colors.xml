@@ -5,6 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="PlayerOne">#F44336</color>
     <color name="PlayerTwo">#2196F3</color>
+    <color name="Draw">#9b59b6</color>
     <color name="Idle">#ecf0f1</color>
     <color name="PlayerTextColor">#FFFFFF</color>
+    <color name="Background">#000000</color>
 </resources>

@@ -3,10 +3,12 @@ package com.example.tictactoe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +23,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        findViewById(android.R.id.content).setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE |
+                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_main);
+
+
         ButtonStates = new int[9];
         Buttons = new Button[9];
         Colors = new int[3];
@@ -232,7 +239,10 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d("No players won! ", "Draw");
         }
-
+        Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
+        intent.putExtra("WINNER", Player);
+        startActivity(intent);
+        Log.d("RETURN", "RETURNED TO MAIN ACTIVITY");
         ResetTiles();
 
     }

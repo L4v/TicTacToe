@@ -11,5 +11,8 @@
     <string name="btn22">""</string>
     <string name="XField">"X"</string>
     <string name="OField">"O"</string>
-    <string name ="EmptyField">""</string>
+    <string name="EmptyField">""</string>
+    <string name = "PlayerOneWon">"Player One won!"</string>
+    <string name = "PlayerTwoWon">"Player Two won!"</string>
+    <string name = "Draw">"Draw!"</string>
 </resources>
