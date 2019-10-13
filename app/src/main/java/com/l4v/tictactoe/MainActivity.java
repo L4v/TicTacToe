@@ -1,24 +1,29 @@
-package com.example.tictactoe;
+package com.l4v.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // Holds the states of the buttons
     private int[] ButtonStates;
     private Button[] Buttons;
+    private Button ResetBtn;
     private int[] Colors;
     private boolean PlayerOneTurn;
     private int MovesPlayed;
+    private TextView POneScoreText;
+    private TextView PTwoScoreText;
+    static int POneScore = 0;
+    static int PTwoScore = 0;
+    private boolean ResetScore = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +52,19 @@ public class MainActivity extends AppCompatActivity {
         Colors[1] = getResources().getColor(R.color.PlayerOne);
         Colors[2] = getResources().getColor(R.color.PlayerTwo);
 
+        POneScoreText = findViewById(R.id.PlayerOneScore);
+        PTwoScoreText = findViewById(R.id.PlayerTwoScore);
+
+        ResetBtn = findViewById(R.id.ResetBtn);
+
         PlayerOneTurn = true;
 
         MovesPlayed = 0;
 
         // NOTE(l4v): Initializing values
+        POneScoreText.setText(String.valueOf(POneScore));
+        PTwoScoreText.setText(String.valueOf(PTwoScore));
+
         for(int i = 0; i < 9; ++i)
         {
             ButtonStates[i] = 0;
@@ -60,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
             Buttons[i].setTextSize(32.0f);
         }
         // TODO(l4v): Add own onclick listener so it can be indexed through the for loop
+
+        ResetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetScore = true;
+                PlayerWon(-1);
+            }
+        });
 
         Buttons[0].setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,17 +248,35 @@ public class MainActivity extends AppCompatActivity {
         }
         MovesPlayed = 0;
         PlayerOneTurn = true;
+        if(ResetScore)
+        {
+            POneScore = 0;
+            PTwoScore = 0;
+            ResetScore = false;
+        }
     }
 
     private void PlayerWon(int Player)
     {
-        if(Player != 0)
+        if(Player > 0)
         {
             Log.d("Player won! ", "Player " + Player);
+            if(Player == 1)
+            {
+                ++POneScore;
+            }
+            else
+            {
+                ++PTwoScore;
+            }
         }
         if(Player == 0)
         {
             Log.d("No players won! ", "Draw");
+        }
+        if(Player == -1)
+        {
+            Log.d("Reset!", "Reset!");
         }
         Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
         intent.putExtra("WINNER", Player);

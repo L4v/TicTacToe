@@ -9,4 +9,5 @@
     <color name="Idle">#ecf0f1</color>
     <color name="PlayerTextColor">#FFFFFF</color>
     <color name="Background">#000000</color>
+    <color name="Reset">#FF9800</color>
 </resources>

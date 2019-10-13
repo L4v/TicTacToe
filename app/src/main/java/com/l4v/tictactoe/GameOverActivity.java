@@ -1,4 +1,4 @@
-package com.example.tictactoe;
+package com.l4v.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +24,7 @@ public class GameOverActivity extends AppCompatActivity {
         SplashScreen.setTextColor(getResources().getColor(R.color.PlayerTextColor));
         SplashScreen.setTextSize(64.0f);
 
-        if(Player != 0)
+        if(Player > 0)
         {
             SplashScreen.setBackgroundColor(getResources().getColor(
                     Player == 1 ? R.color.PlayerOne : R.color.PlayerTwo
@@ -32,10 +32,15 @@ public class GameOverActivity extends AppCompatActivity {
             SplashScreen.setText(getResources().getString(
                     Player == 1 ? R.string.PlayerOneWon : R.string.PlayerTwoWon));
         }
-        else
+        else if(Player == 0)
         {
             SplashScreen.setBackgroundColor(getResources().getColor(R.color.Draw));
             SplashScreen.setText(getResources().getString(R.string.Draw));
+        }
+        else if(Player == -1)
+        {
+            SplashScreen.setBackgroundColor(getResources().getColor(R.color.Reset));
+            SplashScreen.setText(getResources().getString(R.string.Reset));
         }
 
         Thread PauseThread = new Thread()
